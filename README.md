@@ -1,3 +1,5 @@
+
+
 # STM32 TMC2209 Stepper Driver Library
 
 C library designed to control stepper motors using the **TMC2209** in a **non-blocking** manner on STM32 microcontrollers.
@@ -64,3 +66,50 @@ The basic workflow for using the library is as follows:
 	   The examples provide callback functions for:  
    	     - **Single driver mode**: [`callbacks.c`](./Examples/TMC2209_StepDir_Single/Core/Src/callbacks.c)  
    	     - **Multiple driver mode**: [`callbacks.c`](./Examples/TMC2209_StepDir_Multiple/Core/Src/callbacks.c)
+ 
+
+
+## 📊 Usage Examples  
+The [`Examples`](./Examples) folder contains ready-to-use reference projects. These examples have been carried out using the STM32F407 Discovery1 development board, and they make use of the Timer 4 channels connected to the board's LEDs, allowing the pulse outputs to be visually observed.
+- [TMC2209_StepDir_Single](./Examples/TMC2209_StepDir_Single):  Configures a single driver in simple mode.  
+ It blocks execution until the movement is complete before starting the next command.
+```c
+/* Initialize the TMC2209 driver and internal structures */
+APP_TMC2209_Init();
+/* Enable the driver and set the target angular velocity to π/2 rad/s */
+TMC2209_Enable(&htmc1);
+TMC2209_SetAngVel(&htmc1, M_PI_2);
+/* Rotate to π radians (180°) counterclockwise */
+TMC2209_MoveToNormalized(&htmc1, M_PI, DIR_CCW);
+while(htmc1.State == TMC2209_BUSY); // Wait until movement is complete
+HAL_Delay(1000);
+/* Rotate to π/4 radians (45°) following the shortest path */
+TMC2209_MoveToNormalized(&htmc1, M_PI_4, DIR_SHORTEST);
+while(htmc1.State == TMC2209_BUSY); // Wait until movement is complete
+HAL_Delay(1000);
+/* Rotate two full turns clockwise (-2 * 360°) */
+TMC2209_MoveAngle(&htmc1, -M_TWOPI*2);
+while(htmc1.State == TMC2209_BUSY); // Wait until movement is complete
+HAL_Delay(1000);
+/* Move back to 0 radians (0°) following the shortest path */
+TMC2209_MoveToNormalized(&htmc1, 0.0f, DIR_SHORTEST);
+while(htmc1.State == TMC2209_BUSY); // Wait until movement is complete
+HAL_Delay(1000);
+/* Disable the driver */
+TMC2209_Disable(&htmc1);
+```
+- [TMC2209_StepDir_Multiple](./Examples/TMC2209_StepDir_Multiple):  Configures 3 drivers in simple mode. .
+```c
+/* Initialize the Pulse Generator application */
+
+/* Enable the driver and set the target angular velocity */
+
+
+```
+
+
+## 📖 Documentation  
+Each function is documented. For further information, please check [`TMC2209.h`](./TMC2209/Inc/tmc2209.h) and [`TMC2209.c`](./TMC2209/Src/tmc2209.c) for the full API.  
+
+## 🤝 Contributions  
+Contributions are welcome. If you find a bug or want to suggest an improvement, open an *issue* or submit a *pull request*.
