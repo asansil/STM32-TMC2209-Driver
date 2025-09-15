@@ -39,7 +39,7 @@ This library efficiently controls the motor without blocking the main program fl
 The basic workflow for using the library is as follows:
 
 1. **Configure timers in STM32CubeIDE**  
-	  - 1. Configure the timers to be used for step generation for the driver. For detailed instructions, please refer to the [PulseGenerator library README](https://github.com/asansil/STM32-Pulse-Generator).  																												
+	  - Configure the timers to be used for step generation for the driver. For detailed instructions, please refer to the [PulseGenerator library README](https://github.com/asansil/STM32-Pulse-Generator).  																												
 
 2. **Library implementation**
 	- Initialize the TMC2209 handle. The required parameters are:  
