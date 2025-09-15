@@ -107,6 +107,12 @@ TMC2209_Disable(&htmc1);
 
 ```
 
+## To Do 🔜
+
+ - [ ] **Support for multiple drivers** – enable simultaneous control of several TMC2209 units.
+ - [ ] **Advanced UART control and monitoring** – implement real-time parameter tuning and feedback. 
+ - [ ] **Acceleration profiles** – allow configuring speed ramps for smoother motion.  
+ - [ ]  **DMA support** – offload step generation to DMA for even more efficient, non-blocking operation.
 
 ## 📖 Documentation  
 Each function is documented. For further information, please check [`TMC2209.h`](./TMC2209/Inc/tmc2209.h) and [`TMC2209.c`](./TMC2209/Src/tmc2209.c) for the full API.  
